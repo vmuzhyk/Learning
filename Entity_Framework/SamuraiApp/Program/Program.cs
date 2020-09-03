@@ -19,7 +19,7 @@ namespace Program
         }
         private static void AddSamurai()
         {
-            var samurai = new Samurai { Name = "Sampson"};
+            var samurai = new Samurai { Name = "Jasper"};
             context.Samurais.Add(samurai);
             context.SaveChanges();
         }
