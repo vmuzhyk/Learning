@@ -11,7 +11,7 @@ namespace SamuraiApp.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = SamuraiAppData");
+                @"Data Source = DESKTOP-78G56KJ\SQLEXPRESS; Initial Catalog = SamuraiAppData; Integrated Security=true;");
             
         }
     }
