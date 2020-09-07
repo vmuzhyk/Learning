@@ -12,7 +12,11 @@ namespace SamuraiApp.Data
         {
             optionsBuilder.UseSqlServer(
                 @"Data Source = DESKTOP-78G56KJ\SQLEXPRESS; Initial Catalog = SamuraiAppData; Integrated Security=true;");
-            
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SamuraiBattle>().HasKey(s => new{s.SamuraiId, s.BattleId});
         }
     }
 }
