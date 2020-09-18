@@ -11,16 +11,19 @@ namespace Program
         static void Main(string[] args)
         {
             context.Database.EnsureCreated();
-            GetSamurais("Before Add:");
-            AddSamurai();
-            GetSamurais("After Add:");
+            // GetSamurais("Before Add:");
+            // GetSamurais("After Add:");
+            InsertMultipleSamurais();
             Console.Write("Press any key...");
             Console.ReadKey();
         }
-        private static void AddSamurai()
+        private static void InsertMultipleSamurais()
         {
             var samurai = new Samurai { Name = "Jasper"};
-            context.Samurais.Add(samurai);
+            var samurai2 = new Samurai { Name = "Garlem"};
+            var samurai3 = new Samurai { Name = "Mika"};
+            var samurai4 = new Samurai { Name = "Kirby"};
+            context.Samurais.AddRange(samurai, samurai2, samurai3, samurai4);
             context.SaveChanges();
         }
 
