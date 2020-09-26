@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SamuraiApp.Data;
@@ -14,17 +15,61 @@ namespace Program
             //_context.Database.EnsureCreated();
             // GetSamurais("Before Add:");
             // GetSamurais("After Add:");
-             //InsertMultipleSamurais();
+            //InsertMultipleSamurais();
             // Console.Write("Press any key...");
             //QueryFilters();
             //RetreiveAndUpdateSamurai();
             //RetreiveAndUpdateMultipleSamurais();
             //MultipleDatabaseOperation();
-            InsertBattle();
-            QueryAndUpdateBattleDisconected();
+            //InsertBattle();
+            //QueryAndUpdateBattleDisconected();
+            //InsertNewSamuraiWithQuote();
+            //InsertNewSamuraiWithManyQuote();
+            //AddQuoteToExistingSamuraiWhileTracked();
+            AddQuoteToExistingSamuraiIsNoTracked_Easy(3);
             
             Console.ReadKey();
         }
+
+        private static void AddQuoteToExistingSamuraiIsNoTracked_Easy(int samuraiId)
+        {
+            var quote = (new Quote
+            {
+                Text = "Now that I saved you, will you feed me dinner again?",
+                SamuraiId = samuraiId
+            });
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Quotes.Update(quote);
+                newContext.SaveChanges();
+            }
+        }
+
+        private static void AddQuoteToExistingSamuraiWhileTracked()
+        {
+            var samurai = _context.Samurais.FirstOrDefault();
+            samurai.Quotes.Add(new Quote
+            {
+                Text = "I bet you're happy that I've saved you!"
+            });
+            _context.SaveChanges();
+        }
+
+        private static void InsertNewSamuraiWithManyQuote()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kyuzo",
+                Quotes = new List<Quote>
+                {
+                    new Quote{ Text = "Watch out for my sharp sword!" },
+                    new Quote{ Text = "I told you to watch out for the sharp sword! Oh well!"}
+                }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
+        }
+
         private static void InsertMultipleSamurais()
         {
             var samurai = new Samurai { Name = "Liam"};
@@ -93,6 +138,20 @@ namespace Program
                 newContextInstance.Battles.Update(battle);
                 newContextInstance.SaveChanges();
             }
+        }
+
+        private static void InsertNewSamuraiWithQuote()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kambei Shimada",
+                Quotes = new List<Quote>
+                {
+                    new Quote{ Text = "I've come to save you" }
+                }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
         }
     }
 }
