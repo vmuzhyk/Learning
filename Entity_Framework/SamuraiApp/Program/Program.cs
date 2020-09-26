@@ -26,9 +26,15 @@ namespace Program
             //InsertNewSamuraiWithQuote();
             //InsertNewSamuraiWithManyQuote();
             //AddQuoteToExistingSamuraiWhileTracked();
-            AddQuoteToExistingSamuraiIsNoTracked_Easy(3);
+            //AddQuoteToExistingSamuraiIsNoTracked_Easy(3);
+            EagerLoadSamuraiWithQuotes();
             
             Console.ReadKey();
+        }
+
+        private static void EagerLoadSamuraiWithQuotes()
+        {
+            var samuraiWithQuotes = _context.Samurais.Include(s => s.Quotes).ToList();
         }
 
         private static void AddQuoteToExistingSamuraiIsNoTracked_Easy(int samuraiId)
