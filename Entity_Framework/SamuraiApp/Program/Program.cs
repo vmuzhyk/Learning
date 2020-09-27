@@ -27,9 +27,36 @@ namespace Program
             //InsertNewSamuraiWithManyQuote();
             //AddQuoteToExistingSamuraiWhileTracked();
             //AddQuoteToExistingSamuraiIsNoTracked_Easy(3);
-            EagerLoadSamuraiWithQuotes();
+            //EagerLoadSamuraiWithQuotes();
+            //ProjectSomeProperties();
+            ProjectSamuraisWithQuotes();
             
             Console.ReadKey();
+        }
+
+        private static void ProjectSamuraisWithQuotes()
+        {
+            var somePropertiesWithQuotes = _context.Samurais
+            .Select(s => new { s.Id, s.Name, 
+            HappyQuotes = s.Quotes.Where(q => q.Text.Contains("happy")) })
+            .ToList();
+        }
+
+        private static void ProjectSomeProperties()
+        {
+            var someProperties = _context.Samurais.Select(s => new {s.Id, s.Name}).ToList();
+            var idsAndNames = _context.Samurais.Select(s => new IdAndName(s.Id, s.Name)).ToList();
+        }
+
+        public struct IdAndName
+        {
+            public IdAndName (int id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+            public int Id;
+            public string Name;
         }
 
         private static void EagerLoadSamuraiWithQuotes()
