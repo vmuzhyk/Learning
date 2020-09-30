@@ -29,9 +29,17 @@ namespace Program
             //AddQuoteToExistingSamuraiIsNoTracked_Easy(3);
             //EagerLoadSamuraiWithQuotes();
             //ProjectSomeProperties();
-            ProjectSamuraisWithQuotes();
+            //ProjectSamuraisWithQuotes();
+            ExplicitLoadQuotes();
             
             Console.ReadKey();
+        }
+
+        private static void ExplicitLoadQuotes()
+        {
+            var samurai = _context.Samurais.FirstOrDefault(s => s.Name.Contains("Kyuzo"));
+            _context.Entry(samurai).Collection(s => s.Quotes).Load();
+            _context.Entry(samurai).Reference(s => s.Horse).Load();
         }
 
         private static void ProjectSamuraisWithQuotes()
