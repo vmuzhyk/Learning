@@ -30,9 +30,16 @@ namespace Program
             //EagerLoadSamuraiWithQuotes();
             //ProjectSomeProperties();
             //ProjectSamuraisWithQuotes();
-            ExplicitLoadQuotes();
+            //ExplicitLoadQuotes();
+            LazyLoadQuotes();
             
             Console.ReadKey();
+        }
+
+        private static void LazyLoadQuotes()
+        {
+            var samurai = _context.Samurais.FirstOrDefault(s => s.Name.Contains("Liam"));
+            var quoteCount = samurai.Quotes.Count();
         }
 
         private static void ExplicitLoadQuotes()
