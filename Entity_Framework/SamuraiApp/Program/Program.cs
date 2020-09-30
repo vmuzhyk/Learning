@@ -36,10 +36,18 @@ namespace Program
 
         private static void ProjectSamuraisWithQuotes()
         {
-            var somePropertiesWithQuotes = _context.Samurais
-            .Select(s => new { s.Id, s.Name, 
-            HappyQuotes = s.Quotes.Where(q => q.Text.Contains("happy")) })
+            // var somePropertiesWithQuotes = _context.Samurais
+            // .Select(s => new { s.Id, s.Name, 
+            // HappyQuotes = s.Quotes.Where(q => q.Text.Contains("happy")) })
+            // .ToList();
+
+            var samuraisWithHappyQuotes = _context.Samurais
+            .Select(s => new { 
+                Samurai = s, 
+            HappyQuotes = s.Quotes.Where(q => q.Text.Contains("happy")) 
+            })
             .ToList();
+            var firstsamurai = samuraisWithHappyQuotes[0].Samurai.Name += "The Happiest";
         }
 
         private static void ProjectSomeProperties()
