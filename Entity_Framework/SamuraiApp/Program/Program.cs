@@ -31,9 +31,39 @@ namespace Program
             //ProjectSomeProperties();
             //ProjectSamuraisWithQuotes();
             //ExplicitLoadQuotes();
-            LazyLoadQuotes();
-            
+            //LazyLoadQuotes();
+            //FilteringWithRelatedData();
+            //ModifyingRelatedDataWhenTracked();
+            ModifyingRelatedDataWhenNotTracked();
             Console.ReadKey();
+        }
+
+        private static void ModifyingRelatedDataWhenNotTracked()
+        {
+            var samurai = _context.Samurais.Include(s => s.Quotes).FirstOrDefault(s => s.Id == 0);
+            var quote = samurai.Quotes[0];
+            quote.Text = " Did you hear that?";
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Entry(quote).State =EntityState.Modified;
+                //newContext.Quotes.Update(quote);
+                _context.SaveChanges();
+            }
+        }
+
+        private static void ModifyingRelatedDataWhenTracked()
+        {
+            var samurai = _context.Samurais.Include(s => s.Quotes).FirstOrDefault(s => s.Id == 2);
+            //samurai.Quotes[0].Text = " Did you hear that?";
+            _context.Quotes.Remove(samurai.Quotes[0]);
+            _context.SaveChanges();
+        }
+
+        private static void FilteringWithRelatedData()
+        {
+            var samurais = _context.Samurais
+                                    .Where(s => s.Quotes.Any(q => q.Text.Contains("happy")))
+                                    .ToList();
         }
 
         private static void LazyLoadQuotes()
