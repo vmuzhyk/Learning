@@ -34,8 +34,25 @@ namespace Program
             //LazyLoadQuotes();
             //FilteringWithRelatedData();
             //ModifyingRelatedDataWhenTracked();
-            ModifyingRelatedDataWhenNotTracked();
+            //ModifyingRelatedDataWhenNotTracked();
+            JoinBattleAndSamurai();
+            EnlistSamuraiIntoBattle();
+
             Console.ReadKey();
+        }
+
+        private static void EnlistSamuraiIntoBattle()
+        {
+            var battle = _context.Battles.Find(1);
+            battle.SamuraiBattles.Add(new SamuraiBattle{SamuraiId = 21});
+            _context.SaveChanges();
+        }
+
+        private static void JoinBattleAndSamurai()
+        {
+            var sbJoin = new SamuraiBattle {SamuraiId = 1, BattleId = 3};
+            _context.Add(sbJoin);
+            _context.SaveChanges();
         }
 
         private static void ModifyingRelatedDataWhenNotTracked()
