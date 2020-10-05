@@ -35,10 +35,27 @@ namespace Program
             //FilteringWithRelatedData();
             //ModifyingRelatedDataWhenTracked();
             //ModifyingRelatedDataWhenNotTracked();
-            JoinBattleAndSamurai();
-            EnlistSamuraiIntoBattle();
+            //JoinBattleAndSamurai();
+            //EnlistSamuraiIntoBattle();
+            GetSamuraiWithBattles();
 
             Console.ReadKey();
+        }
+
+        private static void GetSamuraiWithBattles()
+        {
+            var samuraiWithBattle = _context.Samurais
+            .Include(s => s.SamuraiBattles)
+            .ThenInclude(sb => sb.Battle)
+            .FirstOrDefault(samurai => samurai.Id == 2);
+
+            var samuraiWithBattlesCleaner = _context.Samurais.Where(s => s.Id ==2)
+            .Select(s => new
+            {
+                Samurai = s,
+                Battles = s.SamuraiBattles.Select(sb => sb.Battle)
+            })
+            .FirstOrDefault();
         }
 
         private static void EnlistSamuraiIntoBattle()
