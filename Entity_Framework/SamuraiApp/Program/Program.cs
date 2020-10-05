@@ -37,9 +37,34 @@ namespace Program
             //ModifyingRelatedDataWhenNotTracked();
             //JoinBattleAndSamurai();
             //EnlistSamuraiIntoBattle();
-            GetSamuraiWithBattles();
+            //GetSamuraiWithBattles();
+            //AddNewSamuraiWithHorse();
+            //AddNewSamuraiWithHorseToSamuraiUsingId();
+            AddNewSamuraiWithHorseToSamuraiObject();
 
             Console.ReadKey();
+        }
+
+        private static void AddNewSamuraiWithHorseToSamuraiObject()
+        {
+            var samurai = _context.Samurais.Find(19);
+            samurai.Horse = new Horse{ Name = "Black Beauty" };
+            _context.SaveChanges();
+        }
+
+        private static void AddNewSamuraiWithHorseToSamuraiUsingId()
+        {
+            var horse = new Horse { Name = "Scout", SamuraiId = 2};
+            _context.Add(horse);
+            _context.SaveChanges();
+        }
+
+        private static void AddNewSamuraiWithHorse()
+        {
+            var samurai = new Samurai { Name = "Jina Ujichka" };
+            samurai.Horse = new Horse { Name = "Silver" };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
         }
 
         private static void GetSamuraiWithBattles()
@@ -49,6 +74,8 @@ namespace Program
             .ThenInclude(sb => sb.Battle)
             .FirstOrDefault(samurai => samurai.Id == 2);
 
+            var battleName = samuraiWithBattle.SamuraiBattles.FirstOrDefault().Battle.Name;
+
             var samuraiWithBattlesCleaner = _context.Samurais.Where(s => s.Id ==2)
             .Select(s => new
             {
@@ -56,6 +83,8 @@ namespace Program
                 Battles = s.SamuraiBattles.Select(sb => sb.Battle)
             })
             .FirstOrDefault();
+
+            var battleName2 = samuraiWithBattlesCleaner.Battles.FirstOrDefault().Name;
         }
 
         private static void EnlistSamuraiIntoBattle()
