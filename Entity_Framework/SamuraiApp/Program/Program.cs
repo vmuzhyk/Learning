@@ -40,9 +40,31 @@ namespace Program
             //GetSamuraiWithBattles();
             //AddNewSamuraiWithHorse();
             //AddNewSamuraiWithHorseToSamuraiUsingId();
-            AddNewSamuraiWithHorseToSamuraiObject();
+            //AddNewSamuraiWithHorseToSamuraiObject();
+            //AddNewHorseToDisconectedSamuraiObject();
+            ReplaceAHorce();
+            
 
             Console.ReadKey();
+        }
+
+        private static void ReplaceAHorce()
+        {
+            //var samurai = _context.Samurais.Include(s => s.Horse).FirstOrDefault(s => s.Id == 17);
+            var samurai = _context.Samurais.Find(1);
+            samurai.Horse = new Horse{Name = "Trigger"};
+            _context.SaveChanges();
+        }
+
+        private static void AddNewHorseToDisconectedSamuraiObject()
+        {
+            var samurai = _context.Samurais.AsNoTracking().FirstOrDefault(s => s.Id == 17);
+            samurai.Horse = new Horse{ Name = "Mr. Ed"};
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Attach(samurai);
+                newContext.SaveChanges();
+            }
         }
 
         private static void AddNewSamuraiWithHorseToSamuraiObject()
