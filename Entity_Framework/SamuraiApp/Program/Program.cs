@@ -42,10 +42,23 @@ namespace Program
             //AddNewSamuraiWithHorseToSamuraiUsingId();
             //AddNewSamuraiWithHorseToSamuraiObject();
             //AddNewHorseToDisconectedSamuraiObject();
-            ReplaceAHorce();
-            
+            //ReplaceAHorce();
+            GetHorseWithSamurai();
 
             Console.ReadKey();
+        }
+
+        private static void GetHorseWithSamurai()
+        {
+            var horseWithoutSamurai = _context.Set<Horse>().Find(3);
+
+            var horseWithSamurai = _context.Samurais.Include(s => s.Horse)
+            .FirstOrDefault(s => s.Horse.Id == 3);
+
+            var horsesWithSamurais = _context.Samurais
+            .Where(s => s.Horse != null)
+            .Select(s => new{ Horse = s.Horse, Samurai = s})
+            .ToList();
         }
 
         private static void ReplaceAHorce()
