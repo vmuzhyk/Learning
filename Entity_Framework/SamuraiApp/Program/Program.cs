@@ -43,9 +43,17 @@ namespace Program
             //AddNewSamuraiWithHorseToSamuraiObject();
             //AddNewHorseToDisconectedSamuraiObject();
             //ReplaceAHorce();
-            GetHorseWithSamurai();
+            //GetHorseWithSamurai();
+            GetClanWithSamurais();
 
             Console.ReadKey();
+        }
+
+        private static void GetClanWithSamurais()
+        {
+            //var clan = _context.Clans.Include(c => c.Id???);
+            var clan = _context.Clans.Find(3);
+            var samuraisForClan = _context.Samurais.Where( s => s.Clan.Id == 3).ToList();
         }
 
         private static void GetHorseWithSamurai()
