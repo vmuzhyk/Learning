@@ -44,9 +44,18 @@ namespace Program
             //AddNewHorseToDisconectedSamuraiObject();
             //ReplaceAHorce();
             //GetHorseWithSamurai();
-            GetClanWithSamurais();
+            //GetClanWithSamurais();
+            QuerySamuraiBattleStats();
 
             Console.ReadKey();
+        }
+
+        private static void QuerySamuraiBattleStats()
+        {
+            //var stats = _context.SamuraiBattleStats.ToList();
+            var firstStat = _context.SamuraiBattleStats.FirstOrDefault();
+            var JasperStat =  _context.SamuraiBattleStats
+                                .Where( s => s.Name == "JasperSan").FirstOrDefault();
         }
 
         private static void GetClanWithSamurais()
