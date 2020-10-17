@@ -45,9 +45,26 @@ namespace Program
             //ReplaceAHorce();
             //GetHorseWithSamurai();
             //GetClanWithSamurais();
-            QuerySamuraiBattleStats();
+            //QuerySamuraiBattleStats();
+            //QueryUsingRawSql();
+            QueryUsingRawSqlWithInterpolation();
 
             Console.ReadKey();
+        }
+
+        private static void QueryUsingRawSqlWithInterpolation()
+        {
+            string name = "Mika";
+            var samurais = _context.Samurais
+                .FromSqlInterpolated($"Select * from Samurais Where Name = {name}")
+                .ToList();
+        }
+
+        private static void QueryUsingRawSql()
+        {
+            //var samurais = _context.Samurais.FromSqlRaw("Select * from Samurais").ToList();
+            var samurais = _context.Samurais.FromSqlRaw(
+                "Select Id, Name, ClanId from Samurais").Include(s => s.Quotes).ToList();
         }
 
         private static void QuerySamuraiBattleStats()
