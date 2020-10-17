@@ -47,9 +47,17 @@ namespace Program
             //GetClanWithSamurais();
             //QuerySamuraiBattleStats();
             //QueryUsingRawSql();
-            QueryUsingRawSqlWithInterpolation();
+            //QueryUsingRawSqlWithInterpolation();
+            QueryUsingRawSqlFromRawSqlStoredProc();
 
             Console.ReadKey();
+        }
+
+        private static void QueryUsingRawSqlFromRawSqlStoredProc()
+        {
+            var text = "Happy";
+            var samurais = _context.Samurais.FromSqlRaw(
+                "EXEC dbo.SamuraisWhoSaidWord {0}", text).ToList();
         }
 
         private static void QueryUsingRawSqlWithInterpolation()
