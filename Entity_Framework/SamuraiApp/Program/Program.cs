@@ -48,9 +48,20 @@ namespace Program
             //QuerySamuraiBattleStats();
             //QueryUsingRawSql();
             //QueryUsingRawSqlWithInterpolation();
-            QueryUsingRawSqlFromRawSqlStoredProc();
+            //QueryUsingRawSqlFromRawSqlStoredProc();
+            ExecuteSomeRawSql();
 
             Console.ReadKey();
+        }
+
+        private static void ExecuteSomeRawSql()
+        {
+            var samuraiId = 22;
+            //var x = _context.Database
+            //.ExecuteSqlRaw("EXEC DeleteQuotesForSamurai {0}", samuraiId);
+            samuraiId = 17;
+            var x = _context.Database
+            .ExecuteSqlInterpolated($"EXEC DeleteQuotesForSamurai {samuraiId}");
         }
 
         private static void QueryUsingRawSqlFromRawSqlStoredProc()
