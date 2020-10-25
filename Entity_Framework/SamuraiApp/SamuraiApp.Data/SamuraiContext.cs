@@ -24,8 +24,7 @@ namespace SamuraiApp.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-            .UseLoggerFactory(ConsoleLoggerFactory).EnableSensitiveDataLogging()
-            .UseSqlServer(@"Data Source = DESKTOP-78G56KJ\SQLEXPRESS; Initial Catalog = SamuraiAppData; Integrated Security=true;");
+            .UseSqlServer(@"Data Source = DESKTOP-78G56KJ\SQLEXPRESS; Initial Catalog = SamuraiTestData; Integrated Security=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
