@@ -9,13 +9,13 @@ namespace Program
 {
     class Program
     {
-        private static SamuraiContext _context = new SamuraiContext();
+        //private static SamuraiContext _context = new SamuraiContext();
         static void Main(string[] args)
         {
             //_context.Database.EnsureCreated();
             // GetSamurais("Before Add:");
             // GetSamurais("After Add:");
-            //InsertMultipleSamurais();
+            InsertMultipleSamurais();
             // Console.Write("Press any key...");
             //QueryFilters();
             //RetreiveAndUpdateSamurai();
@@ -49,12 +49,12 @@ namespace Program
             //QueryUsingRawSql();
             //QueryUsingRawSqlWithInterpolation();
             //QueryUsingRawSqlFromRawSqlStoredProc();
-            ExecuteSomeRawSql();
+            //ExecuteSomeRawSql();
 
             Console.ReadKey();
         }
 
-        private static void ExecuteSomeRawSql()
+        /*private static void ExecuteSomeRawSql()
         {
             var samuraiId = 22;
             //var x = _context.Database
@@ -305,19 +305,20 @@ namespace Program
             };
             _context.Samurais.Add(samurai);
             _context.SaveChanges();
-        }
+        }*/
 
         private static void InsertMultipleSamurais()
         {
-            var samurai = new Samurai { Name = "Liam"};
+            /*var samurai = new Samurai { Name = "Liam"};
             var samurai2 = new Samurai { Name = "Wisdom"};
             var samurai3 = new Samurai { Name = "Poppy"};
-            var samurai4 = new Samurai { Name = "Malcolm"};
-            _context.Samurais.AddRange(samurai, samurai2, samurai3, samurai4);
-            _context.SaveChanges();
+            var samurai4 = new Samurai { Name = "Malcolm"};*/
+            var _bizdata = new BusinnesDataLogic();
+            var samuraiNames = new string[] { "Liam", "Wisdom", "Poppy", "Malcolm" };
+            var newSamuraisCreated = _bizdata.AddMultipleSamurais(samuraiNames);
         }
 
-        private static void GetSamurais(string text)
+        /*private static void GetSamurais(string text)
         {
             var samurais = _context.Samurais.ToList();
             Console.WriteLine($"{text}: Samurai count is {samurais.Count}");
@@ -389,6 +390,6 @@ namespace Program
             };
             _context.Samurais.Add(samurai);
             _context.SaveChanges();
-        }
+        }*/
     }
 }
