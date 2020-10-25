@@ -21,10 +21,18 @@ namespace SamuraiApp.Data
                     && level == LogLevel.Information)
                 .AddConsole();
             });
+        public SamuraiContext() 
+        { }
+
+        public SamuraiContext(DbContextOptions options) 
+        { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-            .UseSqlServer(@"Data Source = DESKTOP-78G56KJ\SQLEXPRESS; Initial Catalog = SamuraiTestData; Integrated Security=true;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder
+                .UseSqlServer(@"Data Source = DESKTOP-78G56KJ\SQLEXPRESS; Initial Catalog = SamuraiTestData; Integrated Security=true;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
